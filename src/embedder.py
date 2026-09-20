@@ -1,0 +1,56 @@
+# Thiết lập môi trường đọc hàm .env và lấy biến thông qua os.getenv()
+import os
+from dotenv import load_dotenv
+load_dotenv()
+
+# SentenceTransformer là thư viện load và chạy embedding model
+from sentence_transformers import SentenceTransformer
+
+print("Đang load model bge-m3...", flush=True)
+model = SentenceTransformer("BAAI/bge-m3")
+print("Load model xong!", flush=True)
+"""
+Mô hình hỗ trợ nhiều ngôn ngữ
+Tạo vector 1024 chiều cho mỗi đoạn text
+Nó tìm kiếm thông tin bằng cách:
+1. Dense Retrieval: Biến câu hỏi thành vector, sau đó dùng công thức để tìm độ tương đồng
+2. Sparse Retrieval: Trải dài câu theo từ điển, chỗ nào là từ thì có giá trị > 0 
+3. Multi-vector: Không nén lại thành 1024, mà mỗi từ là một vector, sau đó đem so sánh với từng từ trong từ điển
+"""
+
+def embed_chunks(chunks):
+    """
+    Chuyển list các chunks thành list các vector embedding
+    """
+    print(f"Đang embed {len(chunks)} chunks...")
+    
+    embeddings = model.encode(
+        chunks,
+        batch_size=32,        # xử lý 32 chunks một lúc
+        show_progress_bar=True # hiện thanh tiến độ
+    )
+    
+    print(f"Xong! Mỗi chunk được chuyển thành vector {embeddings.shape[1]} chiều.")
+    return embeddings
+
+
+def embed_query(query):
+    """
+    Embed 1 câu hỏi để dùng khi retrieve
+    [query] → list vì model.encode nhận list
+    [0] → lấy phần tử đầu tiên (và duy nhất) ra khỏi list
+    """
+    return model.encode([query])[0]
+
+
+# Test 
+if __name__ == "__main__":
+    test_chunks = [
+        "Môn ETC10013 có 2 tín chỉ, học kỳ 1.",
+        "Điều kiện tốt nghiệp là tích lũy đủ 135 tín chỉ.",
+        "Sinh viên phải học môn Triết học Mác-Lênin bắt buộc."
+    ]
+    
+    embeddings = embed_chunks(test_chunks)
+    print(f"\nShape của embeddings: {embeddings.shape}")
+    print(f"Vector đầu tiên (5 số đầu): {embeddings[0][:5]}")

@@ -1,0 +1,19 @@
+# macOS
+.DS_Store
+
+# Environment variables / secrets
+.env
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Virtual environment
+venv/
+.venv/
+
+# ChromaDB local database
+chroma_db/
+
+# Temporary files
+tempCodeRunnerFile.py
