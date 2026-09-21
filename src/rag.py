@@ -1,15 +1,9 @@
 import chromadb
 
-try:
-    from .vector_store import create_collection, add_chunks, retrieve
-    from .loader import load_pdf
-    from .chunker import chunk_text
-    from .generator import generate_answer
-except ImportError:
-    from vector_store import create_collection, add_chunks, retrieve
-    from loader import load_pdf
-    from chunker import chunk_text
-    from generator import generate_answer
+from .vector_store import create_collection, add_chunks, retrieve
+from .loader import load_pdf
+from .chunker import chunk_text
+from .generator import generate_answer
 
 # ============================================================
 # CLASS RAGPipeline — Nhạc trưởng của toàn bộ hệ thống

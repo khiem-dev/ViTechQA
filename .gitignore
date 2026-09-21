@@ -17,3 +17,8 @@ chroma_db/
 
 # Temporary files
 tempCodeRunnerFile.py
+
+# User uploaded documents 
+uploads
+
+data/CV.pdf
