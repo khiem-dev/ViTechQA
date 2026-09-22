@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ViTechQA</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>ViTechQA</h1>
+        <p>Vietnamese Technical Document Q&A</p>
+
+        <h2>Upload PDF</h2>
+
+        <input
+            type="file"
+            id="pdfFile"
+            accept=".pdf"
+        >
+
+        <button id="uploadButton">
+            Upload
+        </button>
+
+        <p id="uploadStatus"></p>
+
+
+        <h2>Ask a question</h2>
+
+        <input
+            type="text"
+            id="questionInput"
+            placeholder="Nhập câu hỏi..."
+        >
+
+        <button id="askButton">
+            Ask
+        </button>
+
+
+        <h2>Answer</h2>
+
+        <div id="answerBox">
+            Chưa có câu trả lời.
+        </div>
+
+    </div>
+
+    <script src="app.js"></script>
+
+</body>
+</html>
